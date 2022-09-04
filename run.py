@@ -324,7 +324,7 @@ def check_score(score):
         )
         print("\n" * 4)
         input(
-            " " * 18 + 
+            " " * 16 + 
             "Press Enter to continue to the High Score Leaderboard\n"
         )
         high_scores()
