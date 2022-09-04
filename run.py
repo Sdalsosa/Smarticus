@@ -32,7 +32,15 @@ def main_screen():
     print(
         colored(
             figlet_format(
-                'Welcome to Smarticus', font='bulbhead', justify='center'
+                'Welcome to', font='bulbhead', justify='center'
+            ),
+            'cyan',
+        )
+    )
+    print(
+        colored(
+            figlet_format(
+                'Smarticus', font='bulbhead', justify='center'
             ),
             'cyan',
         )
@@ -118,11 +126,21 @@ def play():
             print(
                 colored(
                     figlet_format(
-                        "Incorrect Game Over",
+                        "Incorrect",
                         font="bulbhead",
                         justify="center",
                     ),
                     "red",
+                )
+            ) 
+            print(
+                colored(
+                    figlet_format(
+                        "Game Over",
+                        font="bulbhead",
+                        justify="center",
+                    ),
+                    "yellow",
                 )
             )
             print("\n" * 2)
@@ -148,9 +166,10 @@ def get_question():
     )
     incorrect_answers = parse_json["results"][0]["incorrect_answers"]
     options = incorrect_answers.copy()
-    options.append(correct_answer)
-    random.shuffle(options)
-    lettered_options = dict(zip(KEYS, options))
+    converted_options = convert_ascii_list(options)
+    converted_options.append(correct_answer)
+    random.shuffle(converted_options)
+    lettered_options = dict(zip(KEYS, converted_options))
     return question, correct_answer, lettered_options
 
 
@@ -231,7 +250,7 @@ def high_scores():
             )
             i += 1
     print("\n" * 1)
-    input(" " * 20 + "Press Enter to return to main screen\n")
+    input(" " * 22 + "Press Enter to return to main screen\n")
     main_screen()
 
 
@@ -265,7 +284,7 @@ def check_score(score):
 
         print(
             colored(
-                figlet_format(f"Congrats", font="bulbhead", justify="center"),
+                figlet_format("Congrats", font="bulbhead", justify="center"),
                 "cyan",
             )
         )
@@ -292,7 +311,7 @@ def check_score(score):
         clear_terminal()
         print(
             colored(
-                figlet_format("Smarticus", font="bulbhead", justify="center"),
+                figlet_format("Hard Luck", font="bulbhead", justify="center"),
                 "cyan",
             )
         )
