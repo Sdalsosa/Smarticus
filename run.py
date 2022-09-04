@@ -42,7 +42,7 @@ def main_screen():
     print(colored(' ' * 30 + '2 - How to play', 'yellow'))
     print(colored(' ' * 30 + '3 - High Scores Table', 'yellow'))
     print('\n' * 2)
-    num = input(' ' * 22 + 'Please enter one of the three options: ').strip()
+    num = input(' ' * 22 + 'Please enter one of the three options: \n').strip()
     if num == '1':
         play()
     elif num == '2':
@@ -93,7 +93,7 @@ def play():
         player_answer = ""
         while player_answer not in KEYS:
             player_answer = input(
-                " " * 22 + "Please enter your answer A, B, C or D: "
+                " " * 22 + "Please enter your answer A, B, C or D: \n"
             ).capitalize()
         if correct_answer == lettered_options[player_answer]:
             score += 1
@@ -110,7 +110,7 @@ def play():
             print(f"Score = {score}".center(80))
             print("\n" * 5)
             if i != 10:
-                input("Press Enter to continue to next question".center(80))
+                input("Press Enter to continue to next question\n".center(80))
             else:
                 check_score(score)
         elif correct_answer != lettered_options[player_answer]:
@@ -128,7 +128,7 @@ def play():
             print("\n" * 2)
             print(f"Score = {score}".center(80))
             print("\n" * 5)
-            input("Press Enter to see how you did".center(80))
+            input("Press Enter to see how you did\n".center(80))
             check_score(score)
         else:
             break
@@ -185,7 +185,7 @@ def how_to():
         colored(' ' * 5 + '- Answer incorrectly and it\'s game over', 'yellow')
     )
     print('\n' * 5)
-    input(' ' * 22 + 'Press Enter to return to main screen ')
+    input(' ' * 22 + 'Press Enter to return to main screen\n')
     main_screen()
 
 
@@ -205,13 +205,13 @@ def high_scores():
     print("\n" * 1)
     high_scores_data = SHEET.worksheet("HS").get_all_values()
 
-    """ Align High Scores when printed out """
+    #Align High Scores when printed out
     for i in range(10):
         if len(high_scores_data[0][i]) < 10:
             high_scores_data[0][i] = high_scores_data[0][i] + " " * (
                 10 - len(high_scores_data[0][i])
             )
-    """  Sort order of Leaderboard by score """
+    #Sort order of Leaderboard by score
     high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
     high_scores = sorted(
         high_scores_dict.items(), key=lambda item: int(item[1]), reverse=True
@@ -231,7 +231,7 @@ def high_scores():
             )
             i += 1
     print("\n" * 1)
-    input(" " * 20 + "Press Enter to return to main screen ")
+    input(" " * 20 + "Press Enter to return to main screen\n")
     main_screen()
 
 
@@ -278,7 +278,7 @@ def check_score(score):
         print("\n" * 4)
 
         # Add player to the Leaderboard
-        player_name = input(" " * 25 + "Please enter your name: ")
+        player_name = input(" " * 25 + "Please enter your name: \n")
         high_scores_dict[player_name] = score
 
         high_scores_data = [
@@ -305,7 +305,8 @@ def check_score(score):
         )
         print("\n" * 4)
         input(
-            "Press Enter to continue to the High Score Leaderboard".center(80)
+            " " * 18 + 
+            "Press Enter to continue to the High Score Leaderboard\n"
         )
         high_scores()
 
