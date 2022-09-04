@@ -4,6 +4,10 @@ import gspread
 from google.oauth2.service_account import Credentials
 from pyfiglet import figlet_format
 from termcolor import colored
+import requests
+import random
+import json
+import html.parser
 
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
@@ -15,11 +19,11 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('smarticus_high_scores')
+KEYS = ["A", "B", "C", "D"]
 
 
 def main_screen():
-
-    # Present the user with the name of the game and three options.
+    #Present the user with the name of the game and three options.
     #1 lets the user start the game
     #2 lets the user know how to play
     #3 lets the user view the top 10 high scores
@@ -57,16 +61,97 @@ def main_screen():
 
 def clear_terminal():
     # clear terminal window depending on os
+
     os.system('cls||clear')
 
 
-#def play():
+def play():
     # Start the game
+
+    score = 0
+    for i in range(1, 101):
+        clear_terminal()
+        question_num = i
+        print(
+            colored(
+                figlet_format(
+                    f"Question {question_num}",
+                    font="bulbhead",
+                    justify="center",
+                ),
+                "cyan",
+            )
+        )
+        print("\n" * 2)
+        question, correct_answer, lettered_options = get_question()
+        colored_question = colored(f"{question}", "yellow")
+        print(f"{colored_question}".center(80))
+        print("\n" * 1)
+        for letter in KEYS:
+            print(" " * 20 + letter + ": " + lettered_options[letter])
+        print("\n" * 4)
+        player_answer = ""
+        while player_answer not in KEYS:
+            player_answer = input(
+                " " * 22 + "Please enter your answer A, B, C or D: "
+            ).capitalize()
+        if correct_answer == lettered_options[player_answer]:
+            score += 1
+            clear_terminal()
+            print(
+                colored(
+                    figlet_format(
+                        "Correct", font="bulbhead", justify="center"
+                    ),
+                    "green",
+                )
+            )
+            print("\n" * 2)
+            print(f"Score = {score}".center(80))
+            print("\n" * 5)
+            if i != 10:
+                input("Press Enter to continue to next question".center(80))
+            else:
+                return
+        elif correct_answer != lettered_options[player_answer]:
+            clear_terminal()
+            print(
+                colored(
+                    figlet_format(
+                        "Incorrect Game Over",
+                        font="bulbhead",
+                        justify="center",
+                    ),
+                    "red",
+                )
+            )
+            print("\n" * 2)
+            print(f"Score = {score}".center(80))
+            print("\n" * 5)
+            input("Press Enter to see how you did".center(80))
+        else:
+            break
     
 
-#def get_question():
+def get_question():
     # Get the question from the API
-    
+
+    trivia_API = requests.get(
+        "https://opentdb.com/api.php?amount=1&type=multiple"
+    )
+    data = trivia_API.text
+    parse_json = json.loads(data)
+    question = html.parser.unescape(parse_json["results"][0]["question"])
+    correct_answer = html.parser.unescape(
+        parse_json["results"][0]["correct_answer"]
+    )
+    incorrect_answers = parse_json["results"][0]["incorrect_answers"]
+    options = incorrect_answers.copy()
+    options.append(correct_answer)
+    random.shuffle(options)
+    lettered_options = dict(zip(KEYS, options))
+    return question, correct_answer, lettered_options   
+
 
 def how_to():
     # Explains how to play the game
@@ -104,6 +189,7 @@ def how_to():
 
 
 def high_scores():
+
     # Create and Show the High Scores Leaderboard
 
     clear_terminal()
