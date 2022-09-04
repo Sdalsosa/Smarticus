@@ -19,11 +19,11 @@ SHEET = GSPREAD_CLIENT.open('smarticus_high_scores')
 
 def main_screen():
 
-    ''' Present the user with the name of the game and three options.
-    1 lets the user start the game
-    2 lets the user know how to play
-    3 lets the user view the top 10 high scores
-    '''
+    # Present the user with the name of the game and three options.
+    #1 lets the user start the game
+    #2 lets the user know how to play
+    #3 lets the user view the top 10 high scores
+
     clear_terminal()
     print(
         colored(
@@ -46,7 +46,7 @@ def main_screen():
     elif num == '3':
         high_scores()
     else:
-        ''' Input validation '''
+        # Input validation
         clear_terminal()
         print('\n' * 6)
         print(colored(figlet_format('CHOOSE  A VALID  NUMBER',
@@ -56,20 +56,20 @@ def main_screen():
 
 
 def clear_terminal():
-    ''' clear terminal window depending on os '''
+    # clear terminal window depending on os
     os.system('cls||clear')
 
 
-def play():
-    ''' Start the game '''
+#def play():
+    # Start the game
     
 
-def get_question():
-    ''' Get the question from the API '''
+#def get_question():
+    # Get the question from the API
     
 
 def how_to():
-    ''' Explains how to play the game '''
+    # Explains how to play the game
 
     clear_terminal()
     print(
@@ -104,11 +104,52 @@ def how_to():
 
 
 def high_scores():
-    ''' Create and Show the High Scores Leaderboard '''
+    # Create and Show the High Scores Leaderboard
+
+    clear_terminal()
+    print(
+        colored(
+            figlet_format(
+                "Leaderboard", font="bulbhead", justify="center"
+            ),
+            "cyan",
+        )
+    )
+    print("\n" * 1)
+    high_scores_data = SHEET.worksheet("HS").get_all_values()
+
+    """ Align High Scores when printed out """
+    for i in range(10):
+        if len(high_scores_data[0][i]) < 10:
+            high_scores_data[0][i] = high_scores_data[0][i] + " " * (
+                10 - len(high_scores_data[0][i])
+            )
+    """  Sort order of Leaderboard by score """
+    high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
+    high_scores = sorted(
+        high_scores_dict.items(), key=lambda item: int(item[1]), reverse=True
+    )
+    i = 1
+    for value in high_scores:
+        if i == 10:
+            print(
+                " " * 20 + str(i) + ".",
+                str(value[0]) + "  -       High Score: " + str(value[1]),
+            )
+            i += 1
+        else:
+            print(
+                " " * 20 + str(i) + ". ",
+                str(value[0]) + "  -       High Score: " + str(value[1]),
+            )
+            i += 1
+    print("\n" * 1)
+    input(" " * 20 + "Press Enter to return to main screen ")
+    main_screen()
 
 
-def check_score(score):
-    ''' Check if player has made it into the Leaderboard '''
+#def check_score(score):
+    # Check if player has made it into the Leaderboard 
     
     
 main_screen()
