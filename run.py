@@ -23,10 +23,10 @@ KEYS = ["A", "B", "C", "D"]
 
 
 def main_screen():
-    #Present the user with the name of the game and three options.
-    #1 lets the user start the game
-    #2 lets the user know how to play
-    #3 lets the user view the top 10 high scores
+    # Present the user with the name of the game and three options.
+    # 1 lets the user start the game
+    # 2 lets the user know how to play
+    # 3 lets the user view the top 10 high scores
 
     clear_terminal()
     print(
@@ -112,7 +112,7 @@ def play():
             if i != 10:
                 input("Press Enter to continue to next question".center(80))
             else:
-                return
+                check_score(score)
         elif correct_answer != lettered_options[player_answer]:
             clear_terminal()
             print(
@@ -129,9 +129,10 @@ def play():
             print(f"Score = {score}".center(80))
             print("\n" * 5)
             input("Press Enter to see how you did".center(80))
+            check_score(score)
         else:
             break
-    
+
 
 def get_question():
     # Get the question from the API
@@ -150,7 +151,7 @@ def get_question():
     options.append(correct_answer)
     random.shuffle(options)
     lettered_options = dict(zip(KEYS, options))
-    return question, correct_answer, lettered_options   
+    return question, correct_answer, lettered_options
 
 
 def how_to():
@@ -166,8 +167,8 @@ def how_to():
     print('\n' * 2)
     print(
         colored(
-            ' ' * 5 + 
-            '- You will be given 100 multiple choice questions listed as' + 
+            ' ' * 5 +
+            '- You will be given 100 multiple choice questions listed as' +
             'A, B, C, and D',
             'yellow',
         )
@@ -234,8 +235,78 @@ def high_scores():
     main_screen()
 
 
-#def check_score(score):
-    # Check if player has made it into the Leaderboard 
-    
-    
+def convert_ascii_list(list):
+    # Translate html ascii characters
+    converted = []
+    for text in list:
+        converted_text = html.parser.unescape(text)
+        converted.append(converted_text)
+    return converted
+
+
+def check_score(score):
+    # Check if player has made it onto the Leaderboard
+
+    high_scores_data = SHEET.worksheet("HS").get_all_values()
+    high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
+    scores = list(high_scores_dict.values())
+    int_scores = [int(i) for i in scores]
+    min_high_score = min(int_scores)
+    if score > min_high_score:
+        clear_terminal()
+
+        # Remove lowest score from Leaderboard
+        value = {
+            i
+            for i in high_scores_dict
+            if high_scores_dict[i] == str(min_high_score)
+        }.pop()
+        del high_scores_dict[value]
+
+        print(
+            colored(
+                figlet_format(f"Congrats", font="bulbhead", justify="center"),
+                "cyan",
+            )
+        )
+        print("\n" * 2)
+        print(
+            colored(
+                " " * 22 + "You made our High Scores Leaderboard", "yellow"
+            )
+        )
+        print("\n" * 4)
+
+        # Add player to the Leaderboard
+        player_name = input(" " * 25 + "Please enter your name: ")
+        high_scores_dict[player_name] = score
+
+        high_scores_data = [
+            list(high_scores_dict.keys()),
+            list(high_scores_dict.values()),
+        ]
+        SHEET.worksheet("HS").clear()
+        SHEET.worksheet("HS").update(high_scores_data)
+        high_scores()
+    else:
+        clear_terminal()
+        print(
+            colored(
+                figlet_format("Smarticus", font="bulbhead", justify="center"),
+                "cyan",
+            )
+        )
+        print("\n" * 2)
+        print(
+            colored(
+                " " * 18 + "You did not make the High Score Leader board",
+                "yellow",
+            )
+        )
+        print("\n" * 4)
+        input(
+            "Press Enter to continue to the High Score Leaderboard".center(80)
+        )
+        high_scores()
+
 main_screen()
