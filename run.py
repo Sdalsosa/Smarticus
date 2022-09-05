@@ -188,7 +188,7 @@ def how_to():
         colored(
             ' ' * 5 +
             '- You will be given 100 multiple choice questions listed as' +
-            'A, B, C, and D',
+            ' A, B, C, and D',
             'yellow',
         )
     )
@@ -198,8 +198,8 @@ def how_to():
             'yellow',
         )
     )
-    print(colored(' ' * 5 + '- Each correct answer is 10 points', 'yellow'))
-    print(colored(' ' * 5 + '- Try and get on to the Leadboard', 'yellow'))
+    print(colored(' ' * 5 + '- Each correct answer is worth 1 point', 'yellow'))
+    print(colored(' ' * 5 + '- Try and get on the Leadboard', 'yellow'))
     print(
         colored(' ' * 5 + '- Answer incorrectly and it\'s game over', 'yellow')
     )
