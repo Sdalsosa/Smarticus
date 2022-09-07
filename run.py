@@ -109,7 +109,7 @@ def play():
                 " " * 22 + "Please enter your answer A, B, C or D: \n"
             ).capitalize()
         if correct_answer == lettered_options[player_answer]:
-            score += 10
+            score += 1
             clear_terminal()
             print(
                 colored(
@@ -304,7 +304,7 @@ def check_score(score):
     scores = list(high_scores_dict.values())
     int_scores = [int(i) for i in scores]
     min_high_score = min(int_scores)
-    if score > min_high_score:
+    if (score > min_high_score) or (len(scores) < 10):
         clear_terminal()
         print(
             colored(
