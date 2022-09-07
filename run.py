@@ -214,6 +214,16 @@ def how_to():
     main_screen()
 
 
+def sheet_values():
+    try:
+        high_scores_data = SHEET.worksheet("HS").get_all_values()
+    except:
+        print(" " * 15 + 'Unable to access High Scores sheet at the moment')
+        time.sleep(4)
+        main_screen()
+    return high_scores_data
+
+
 def high_scores():
 
     # Create and Show the High Scores Leaderboard
@@ -228,7 +238,7 @@ def high_scores():
         )
     )
     print("\n" * 1)
-    high_scores_data = SHEET.worksheet("HS").get_all_values()
+    high_scores_data = sheet_values()
 
     #Align High Scores when printed out
     for i in range(10):
@@ -236,6 +246,7 @@ def high_scores():
             high_scores_data[0][i] = high_scores_data[0][i] + " " * (
                 10 - len(high_scores_data[0][i])
             )
+            
     #Sort order of Leaderboard by score
     high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
     high_scores = sorted(
