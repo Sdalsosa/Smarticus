@@ -109,7 +109,7 @@ def play():
                 " " * 22 + "Please enter your answer A, B, C or D: \n"
             ).capitalize()
         if correct_answer == lettered_options[player_answer]:
-            score += 1
+            score += 10
             clear_terminal()
             print(
                 colored(
@@ -321,7 +321,9 @@ def check_score(score):
         print("\n" * 4)
 
         # Add player to the Leaderboard
-        player_name = input(" " * 25 + "Please enter your name: \n")
+        player_name = ''
+        while player_name == '':
+            player_name = input(" " * 25 + "Please enter your name: \n")
         high_scores_dict[player_name] = score
 
         # Remove lowest score from Leaderboard
