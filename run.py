@@ -23,6 +23,7 @@ KEYS = ["A", "B", "C", "D"]
 
 
 def main_screen():
+
     # Present the user with the name of the game and three options.
     # 1 lets the user start the game
     # 2 lets the user know how to play
@@ -58,7 +59,9 @@ def main_screen():
     elif num == '3':
         high_scores()
     else:
+
         # Input validation
+
         clear_terminal()
         print('\n' * 6)
         print(colored(figlet_format('CHOOSE  A VALID  NUMBER',
@@ -68,12 +71,14 @@ def main_screen():
 
 
 def clear_terminal():
+
     # clear terminal window depending on os
 
     os.system('cls||clear')
 
 
 def play():
+
     # Start the game
 
     score = 0
@@ -117,7 +122,7 @@ def play():
             print("\n" * 2)
             print(f"Score = {score}".center(80))
             print("\n" * 5)
-            if i != 10:
+            if i != 100:
                 input("Press Enter to continue to next question\n".center(80))
             else:
                 check_score(score)
@@ -132,7 +137,7 @@ def play():
                     ),
                     "red",
                 )
-            ) 
+            )
             print(
                 colored(
                     figlet_format(
@@ -153,15 +158,15 @@ def play():
 
 
 def get_question():
-    # Get the question from the API
+
+    # Get the question from the API with exception handling
 
     try:
         trivia_API = requests.get(
-        "https://opentdb.com/api.php?amount=1&type=multiple"
-    )
+             "https://opentdb.com/api.php?amount=1&type=multiple")
     except:
-        print(" " * 12 
-              + 'It looks like the API is down, please try again later')
+        print(" " * 12 +
+              'It looks like the API is down, please try again later')
         time.sleep(4)
         main_screen()
     data = trivia_API.text
@@ -180,6 +185,7 @@ def get_question():
 
 
 def how_to():
+
     # Explains how to play the game
 
     clear_terminal()
@@ -204,8 +210,8 @@ def how_to():
             'yellow',
         )
     )
-    print(colored(' ' * 5 + '- Each correct answer is worth 1 point', 'yellow'))
-    print(colored(' ' * 5 + '- Try and get on the Leadboard', 'yellow'))
+    print(colored(' ' * 5 + '- Each correct answer equals 1 point', 'yellow'))
+    print(colored(' ' * 5 + '- Try and get on the Leaderboard', 'yellow'))
     print(
         colored(' ' * 5 + '- Answer incorrectly and it\'s game over', 'yellow')
     )
@@ -215,6 +221,9 @@ def how_to():
 
 
 def sheet_values():
+
+    # Exception handing for google sheet connection
+
     try:
         high_scores_data = SHEET.worksheet("HS").get_all_values()
     except:
@@ -222,6 +231,17 @@ def sheet_values():
         time.sleep(4)
         main_screen()
     return high_scores_data
+
+
+def order_high_scores(high_scores_data):
+
+    # Sort order of Leaderboard by score
+
+    high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
+    high_scores = sorted(
+        high_scores_dict.items(), key=lambda item: int(item[1]), reverse=True
+    )
+    return high_scores
 
 
 def high_scores():
@@ -240,30 +260,26 @@ def high_scores():
     print("\n" * 1)
     high_scores_data = sheet_values()
 
-    #Align High Scores when printed out
-    for i in range(10):
-        if len(high_scores_data[0][i]) < 10:
-            high_scores_data[0][i] = high_scores_data[0][i] + " " * (
-                10 - len(high_scores_data[0][i])
+    # Align High Scores when printed out
+    for x in range(len(high_scores_data[0])):
+        if len(high_scores_data[0][x]) < 15:
+            high_scores_data[0][x] = high_scores_data[0][x] + " " * (
+                15 - len(high_scores_data[0][x])
             )
-            
-    #Sort order of Leaderboard by score
-    high_scores_dict = dict(zip(high_scores_data[0], high_scores_data[1]))
-    high_scores = sorted(
-        high_scores_dict.items(), key=lambda item: int(item[1]), reverse=True
-    )
+
+    high_scores = order_high_scores(high_scores_data)
     i = 1
     for value in high_scores:
-        if i == 10:
+        if i >= 10:
             print(
-                " " * 20 + str(i) + ".",
-                str(value[0]) + "  -       High Score: " + str(value[1]),
+                " " * 18 + str(i) + ".",
+                str(value[0]) + "  -          High Score: " + str(value[1]),
             )
             i += 1
         else:
             print(
-                " " * 20 + str(i) + ". ",
-                str(value[0]) + "  -       High Score: " + str(value[1]),
+                " " * 18 + str(i) + ". ",
+                str(value[0]) + "  -          High Score: " + str(value[1]),
             )
             i += 1
     print("\n" * 1)
@@ -290,15 +306,6 @@ def check_score(score):
     min_high_score = min(int_scores)
     if score > min_high_score:
         clear_terminal()
-
-        # Remove lowest score from Leaderboard
-        value = {
-            i
-            for i in high_scores_dict
-            if high_scores_dict[i] == str(min_high_score)
-        }.pop()
-        del high_scores_dict[value]
-
         print(
             colored(
                 figlet_format("Congrats", font="bulbhead", justify="center"),
@@ -316,6 +323,15 @@ def check_score(score):
         # Add player to the Leaderboard
         player_name = input(" " * 25 + "Please enter your name: \n")
         high_scores_dict[player_name] = score
+
+        # Remove lowest score from Leaderboard
+        if len(high_scores_dict) > 10:
+            value = {
+                i
+                for i in high_scores_dict
+                if int(high_scores_dict[i]) <= min_high_score
+            }.pop()
+            del high_scores_dict[value]
 
         high_scores_data = [
             list(high_scores_dict.keys()),
@@ -341,7 +357,7 @@ def check_score(score):
         )
         print("\n" * 4)
         input(
-            " " * 16 + 
+            " " * 16 +
             "Press Enter to continue to the High Score Leaderboard\n"
         )
         high_scores()
