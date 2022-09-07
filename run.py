@@ -192,29 +192,29 @@ def how_to():
     print(
         colored(
             figlet_format('How to Play', font='bulbhead', justify='center'),
-            'cyan',
-        )
-    )
+            'cyan'))
     print('\n' * 2)
     print(
         colored(
             ' ' * 5 +
             '- You will be given 100 multiple choice questions listed as' +
             ' A, B, C, and D',
-            'yellow',
-        )
-    )
+            'yellow'))
     print(
         colored(
             ' ' * 5 + '- Answer the question by entering A, B, C, or D',
-            'yellow',
-        )
-    )
+            'yellow'))
     print(colored(' ' * 5 + '- Each correct answer equals 1 point', 'yellow'))
     print(colored(' ' * 5 + '- Try and get on the Leaderboard', 'yellow'))
     print(
         colored(' ' * 5 + '- Answer incorrectly and it\'s game over', 'yellow')
     )
+    print(
+        colored(' ' * 5 + '- You can only appear on the leaderboard once', 
+                'yellow'))
+    print(
+        colored(' ' * 5 + '- Your existing score will be updated instead', 
+                'yellow'))
     print('\n' * 5)
     input(' ' * 22 + 'Press Enter to return to main screen\n')
     main_screen()
@@ -323,7 +323,7 @@ def check_score(score):
         # Add player to the Leaderboard
         player_name = ''
         while player_name == '':
-            player_name = input(" " * 25 + "Please enter your name: \n")
+            player_name = input(" " * 25 + "Please enter your full name:\n")
         high_scores_dict[player_name] = score
 
         # Remove lowest score from Leaderboard
