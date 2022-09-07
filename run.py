@@ -324,7 +324,14 @@ def check_score(score):
         player_name = ''
         while player_name == '':
             player_name = input(" " * 25 + "Please enter your full name:\n")
-        high_scores_dict[player_name] = score
+
+        # Check if score beats existing player's previous high score
+        if player_name in high_scores_dict.keys():
+            if score > int(high_scores_dict[player_name]):
+                high_scores_dict[player_name] = score
+
+        if player_name not in high_scores_dict.keys():
+            high_scores_dict[player_name] = score
 
         # Remove lowest score from Leaderboard
         if len(high_scores_dict) > 10:
@@ -334,6 +341,8 @@ def check_score(score):
                 if int(high_scores_dict[i]) <= min_high_score
             }.pop()
             del high_scores_dict[value]
+
+        print(high_scores_dict.keys())
 
         high_scores_data = [
             list(high_scores_dict.keys()),
