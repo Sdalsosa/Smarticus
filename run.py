@@ -155,9 +155,15 @@ def play():
 def get_question():
     # Get the question from the API
 
-    trivia_API = requests.get(
+    try:
+        trivia_API = requests.get(
         "https://opentdb.com/api.php?amount=1&type=multiple"
     )
+    except:
+        print(" " * 12 
+              + 'It looks like the API is down, please try again later')
+        time.sleep(4)
+        main_screen()
     data = trivia_API.text
     parse_json = json.loads(data)
     question = html.parser.unescape(parse_json["results"][0]["question"])
