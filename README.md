@@ -188,7 +188,7 @@ Here are a list of technologies used in this project
 
 # Testing 
 
-I have spent many many hours testing this site and had friends go through it for me also.
+I have spent many hours testing this site and had friends go through it for me also.
 
 This led to many issues being identified.
 
