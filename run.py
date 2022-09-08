@@ -69,7 +69,7 @@ def main_screen():
 def clear_terminal():
 
     # clear terminal window depending on os
-    #https://stackoverflow.com/questions/2084508/clear-terminal-in-python
+    # https://stackoverflow.com/questions/2084508/clear-terminal-in-python
 
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -231,7 +231,7 @@ def high_scores():
         colored(
             figlet_format(
                 "Leaderboard", font="bulbhead", justify="center"
-            ),"cyan"))
+            ), "cyan"))
     print("\n" * 1)
     high_scores_data = sheet_values()
 
@@ -291,7 +291,8 @@ def check_score(score):
         # Add player to the Leaderboard
         player_name = ''
         while player_name == '':
-            player_name = input(" " * 25 + "Please enter your full name:\n")
+            player_name = input(" " * 25 +
+                                "Please enter your full name or nickname:\n")
 
         # Check if score beats existing player's previous high score
         if player_name in high_scores_dict.keys():
