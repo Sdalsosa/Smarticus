@@ -182,7 +182,7 @@ Here are a list of technologies used in this project
 - [gspread](https://docs.gspread.org/en/latest/) Used as API to enable python to access google sheets.
 - [Open Trivia Database](https://opentdb.com/) Used for the questions API
 - [Lucid](https://lucid.co/) Used to design the flowchart
-- [Adobe Photoshop CS6](https://www.adobe.com/ie/products/photoshop.html) Used to create and edit images used for the website.
+- [Adobe Photoshop CS6](https://www.adobe.com/ie/products/photoshop.html) Used to create and edit images used for the readme.
 
 [Back to top](<#contents>)
 
