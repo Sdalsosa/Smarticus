@@ -169,7 +169,7 @@ Here are a list of technologies used in this project
 - [Git](https://git-scm.com/) Version control
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) 
 - [CSS](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics) 
-- [JavaScript](hhttps://www.javascript.com/) 
+- [JavaScript](https://www.javascript.com/) 
 - [Coloors](https://coolors.co/) Used to display the color palette image in the readme.
 - [random Module](https://docs.python.org/3/library/random.html) Used for randomising order of answer choices
 - [os Module](https://docs.python.org/3/library/os.html) Used for clearing the terminal
