@@ -233,10 +233,7 @@ def high_scores():
         colored(
             figlet_format(
                 "Leaderboard", font="bulbhead", justify="center"
-            ),
-            "cyan",
-        )
-    )
+            ),"cyan"))
     print("\n" * 1)
     high_scores_data = sheet_values()
 
@@ -314,8 +311,6 @@ def check_score(score):
                 if int(high_scores_dict[i]) <= min_high_score
             }.pop()
             del high_scores_dict[value]
-
-        print(high_scores_dict.keys())
 
         high_scores_data = [
             list(high_scores_dict.keys()),
