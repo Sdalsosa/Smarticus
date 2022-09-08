@@ -247,11 +247,11 @@ There seems to be an issue with it on safari or apple devices but this also was 
 * One the following page, click the 'Settings' tab and scroll to Config Vars.
 * In the KEY input field, enter 'PORT' and in the VALUE input field, enter '8000'.
 * Click 'Add'.
-* On the same page, scroll down to buildpacks and add add two buildpacks.
+* On the same page, scroll down to buildpacks and add two buildpacks.
 * The ordering for these is heroku/python followed by heroku/nodejs.
-* At the top of the page, click 'Deploy.
+* At the top of the page, click 'Deploy'.
 * Select Github as the deployment method.
-* Select your repository name and click the 'Connect'.
+* Search for and select correct repository and click 'Connect'.
 * At the bottom of the same page, select either Automatic Deployment or Manual Deployment 
 * Wait for your site to be deployed.
 
