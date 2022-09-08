@@ -219,8 +219,8 @@ There seems to be an issue with it on safari or apple devices but this also was 
 * As existing leaderboard players score updates and doesn't add a new key:value pair, the leaderboard was presenting with 9 results in these cases. I added code that only deletes entries from the google sheet if there are greater than 10 entries.
 * I added exceptions to the Trivia API and google sheet so the program would not crash if they were down.
 * High Scores in Leaderboard were very untidy when printed due to name length difference. I created code to add spaces to make all lenghts uniform so the leaderboard looks neat and clean
-* The terminal clear function wasn't working on every device, I used 'cls||clear' to resolve this issue.
-* I initially had a 
+* The terminal clear function wasn't working on every device, I used 'cls||clear' to resolve this issue initially but noticed a warning appear but didn't cause a crash. I decided to change it anyway and found a solution on stack overflow which is listed in the credits section.
+* I initially had a switch case implemented which was added to Python 3.10 but it would not work in gitpod so I changed it to an if else statment.
  
 
 ## Unfixed Bugs
