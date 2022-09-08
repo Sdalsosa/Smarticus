@@ -9,10 +9,12 @@ import random
 import json
 import html.parser
 
+# Borrowed from the Code Institute Love Sandwiches project
+
 SCOPE = [
     'https://www.googleapis.com/auth/spreadsheets',
     'https://www.googleapis.com/auth/drive.file',
-    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/drive'
 ]
 
 CREDS = Credentials.from_service_account_file('creds.json')
@@ -34,18 +36,12 @@ def main_screen():
         colored(
             figlet_format(
                 'Welcome to', font='bulbhead', justify='center'
-            ),
-            'cyan',
-        )
-    )
+            ), 'cyan'))
     print(
         colored(
             figlet_format(
                 'Smarticus', font='bulbhead', justify='center'
-            ),
-            'cyan',
-        )
-    )
+            ), 'cyan'))
     print('\n' * 2)
     print(colored(' ' * 30 + '1 - Play Game', 'yellow'))
     print(colored(' ' * 30 + '2 - How to play', 'yellow'))
@@ -90,11 +86,7 @@ def play():
                 figlet_format(
                     f"Question {question_num}",
                     font="bulbhead",
-                    justify="center",
-                ),
-                "cyan",
-            )
-        )
+                    justify="center"), "cyan"))
         print("\n" * 2)
         question, correct_answer, lettered_options = get_question()
         colored_question = colored(f"{question}", "yellow")
@@ -114,11 +106,7 @@ def play():
             print(
                 colored(
                     figlet_format(
-                        "Correct", font="bulbhead", justify="center"
-                    ),
-                    "green",
-                )
-            )
+                      "Correct", font="bulbhead", justify="center"), "green"))
             print("\n" * 2)
             print(f"Score = {score}".center(80))
             print("\n" * 5)
@@ -133,21 +121,13 @@ def play():
                     figlet_format(
                         "Incorrect",
                         font="bulbhead",
-                        justify="center",
-                    ),
-                    "red",
-                )
-            )
+                        justify="center"), "red"))
             print(
                 colored(
                     figlet_format(
                         "Game Over",
                         font="bulbhead",
-                        justify="center",
-                    ),
-                    "yellow",
-                )
-            )
+                        justify="center"), "yellow"))
             print("\n" * 2)
             print(f"Score = {score}".center(80))
             print("\n" * 5)
@@ -198,8 +178,7 @@ def how_to():
         colored(
             ' ' * 5 +
             '- You will be given 100 multiple choice questions listed as' +
-            ' A, B, C, and D',
-            'yellow'))
+            ' A, B, C, and D', 'yellow'))
     print(
         colored(
             ' ' * 5 + '- Answer the question by entering A, B, C, or D',
@@ -210,10 +189,11 @@ def how_to():
         colored(' ' * 5 + '- Answer incorrectly and it\'s game over', 'yellow')
     )
     print(
-        colored(' ' * 5 + '- You can only appear on the leaderboard once', 
+        colored(' ' * 5 +
+                '- Your name can only appear on the leaderboard once',
                 'yellow'))
     print(
-        colored(' ' * 5 + '- Your existing score will be updated instead', 
+        colored(' ' * 5 + '- Your existing score will be updated instead',
                 'yellow'))
     print('\n' * 5)
     input(' ' * 22 + 'Press Enter to return to main screen\n')
@@ -264,8 +244,7 @@ def high_scores():
     for x in range(len(high_scores_data[0])):
         if len(high_scores_data[0][x]) < 15:
             high_scores_data[0][x] = high_scores_data[0][x] + " " * (
-                15 - len(high_scores_data[0][x])
-            )
+                15 - len(high_scores_data[0][x]))
 
     high_scores = order_high_scores(high_scores_data)
     i = 1
@@ -273,14 +252,12 @@ def high_scores():
         if i >= 10:
             print(
                 " " * 18 + str(i) + ".",
-                str(value[0]) + "  -          High Score: " + str(value[1]),
-            )
+                str(value[0]) + "  -          High Score: " + str(value[1]))
             i += 1
         else:
             print(
                 " " * 18 + str(i) + ". ",
-                str(value[0]) + "  -          High Score: " + str(value[1]),
-            )
+                str(value[0]) + "  -          High Score: " + str(value[1]))
             i += 1
     print("\n" * 1)
     input(" " * 22 + "Press Enter to return to main screen\n")
@@ -309,15 +286,11 @@ def check_score(score):
         print(
             colored(
                 figlet_format("Congrats", font="bulbhead", justify="center"),
-                "cyan",
-            )
-        )
+                "cyan"))
         print("\n" * 2)
         print(
             colored(
-                " " * 22 + "You made our High Scores Leaderboard", "yellow"
-            )
-        )
+                " " * 22 + "You made our High Scores Leaderboard", "yellow"))
         print("\n" * 4)
 
         # Add player to the Leaderboard
@@ -356,21 +329,16 @@ def check_score(score):
         print(
             colored(
                 figlet_format("Hard Luck", font="bulbhead", justify="center"),
-                "cyan",
-            )
-        )
+                "cyan"))
         print("\n" * 2)
         print(
             colored(
                 " " * 18 + "You did not make the High Score Leader board",
-                "yellow",
-            )
-        )
+                "yellow"))
         print("\n" * 4)
         input(
             " " * 16 +
-            "Press Enter to continue to the High Score Leaderboard\n"
-        )
+            "Press Enter to continue to the High Score Leaderboard\n")
         high_scores()
 
 main_screen()
