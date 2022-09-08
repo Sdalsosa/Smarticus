@@ -230,7 +230,8 @@ There seems to be an issue with it on safari or apple devices but this also was 
 ## Validator Testing 
 
 - Python
-  - No errors were found when passing through the official [PEP8 validator](docs/images/pep8.png)
+  - No errors were found when passing through the official PEP8 validator
+  ![High Score Leaderboard](docs/images/pep8.png)
 
 [Back to top](<#contents>)
 
