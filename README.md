@@ -263,6 +263,8 @@ There seems to be an issue with it on safari or apple devices but this also was 
 
 [Code Institute](https://learn.codeinstitute.net/) I used the SCOPE from the love sandwiches project for the Google Sheets API and also refered back to the course material many times.
 
+[Stack Overflow](https://stackoverflow.com/questions/2084508/clear-terminal-in-python) Code used to clear terminal window
+
 [Back to top](<#contents>)
 
 ## Developer
