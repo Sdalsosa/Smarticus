@@ -242,21 +242,21 @@ def high_scores():
 
     # Align High Scores when printed out
     for x in range(len(high_scores_data[0])):
-        if len(high_scores_data[0][x]) < 15:
+        if len(high_scores_data[0][x]) < 20:
             high_scores_data[0][x] = high_scores_data[0][x] + " " * (
-                15 - len(high_scores_data[0][x]))
+                20 - len(high_scores_data[0][x]))
 
     high_scores = order_high_scores(high_scores_data)
     i = 1
     for value in high_scores:
         if i >= 10:
             print(
-                " " * 18 + str(i) + ".",
+                " " * 12 + str(i) + ".",
                 str(value[0]) + "  -          High Score: " + str(value[1]))
             i += 1
         else:
             print(
-                " " * 18 + str(i) + ". ",
+                " " * 12 + str(i) + ". ",
                 str(value[0]) + "  -          High Score: " + str(value[1]))
             i += 1
     print("\n" * 1)
