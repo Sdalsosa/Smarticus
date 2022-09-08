@@ -70,7 +70,7 @@ def clear_terminal():
 
     # clear terminal window depending on os
 
-    os.system('cls||clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 def play():
@@ -81,12 +81,9 @@ def play():
     for i in range(1, 101):
         clear_terminal()
         question_num = i
-        print(
-            colored(
-                figlet_format(
-                    f"Question {question_num}",
-                    font="bulbhead",
-                    justify="center"), "cyan"))
+        print(colored(figlet_format(f"Question {question_num}",
+                                    font="bulbhead",
+                                    justify="center"), "cyan"))
         print("\n" * 2)
         question, correct_answer, lettered_options = get_question()
         colored_question = colored(f"{question}", "yellow")
